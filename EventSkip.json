@@ -1,0 +1,12 @@
+{
+  "id": "EventSkip",
+  "name": "Event Skip / 跳过事件",
+  "author": "Codex",
+  "description": "Adds a one-time Skip option to every event. Skipping an Ancient grants 200 gold; skipping Neow grants 100 gold. No BaseLib dependency.",
+  "version": "v0.1.0",
+  "min_game_version": "0.103.2",
+  "has_pck": false,
+  "has_dll": true,
+  "dependencies": [],
+  "affects_gameplay": true
+}

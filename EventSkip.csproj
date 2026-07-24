@@ -1,0 +1,49 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
+  <Import Project=".\Sts2PathDiscovery.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>true</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>EventSkip</RootNamespace>
+    <AssemblyName>EventSkip</AssemblyName>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=.\</PathMap>
+    <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
+    <NoWarn>$(NoWarn);MSB3270</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup Condition="Exists('$(Sts2DataDir)')">
+    <Reference Include="0Harmony">
+      <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="EventSkipCode\**\*.cs" />
+    <None Include="EventSkip.json" />
+    <None Include="project.godot" />
+    <None Include="README-EventSkip.md" />
+  </ItemGroup>
+
+  <Target Name="CheckDependencyPaths">
+    <Error Text="Slay the Spire 2 data not found at path '$(Sts2DataDir)'. Install StS2 or pass /p:Sts2DataDir=..."
+           Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
+  </Target>
+
+  <Target Name="CopyToModsFolderOnBuild" AfterTargets="Build" Condition="'$(ModsPath)' != ''">
+    <Message Text="Copying EventSkip.dll, .pdb and manifest to $(ModsPath)EventSkip/" Importance="high" />
+    <MakeDir Directories="$(ModsPath)EventSkip/" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)EventSkip/" />
+    <Copy SourceFiles="EventSkip.json" DestinationFolder="$(ModsPath)EventSkip/" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ModsPath)EventSkip/" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+    <Copy SourceFiles="README-EventSkip.md" DestinationFolder="$(ModsPath)EventSkip/" />
+  </Target>
+</Project>
