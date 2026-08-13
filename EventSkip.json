@@ -1,8 +1,8 @@
 {
   "id": "EventSkip",
   "name": "Event Skip / 跳过事件",
-  "author": "Codex",
-  "description": "Adds a one-time Skip option to every event. Skipping an Ancient grants 200 gold; skipping Neow grants 100 gold. No BaseLib dependency.",
+  "author": "Yummn",
+  "description": "为事件第一页增加一次性的“跳过”选项。普通事件直接离开，跳过先古之民获得 200 金币，跳过涅奥获得 100 金币；选择原事件选项后不再显示。无需 BaseLib。",
   "version": "v0.1.0",
   "min_game_version": "0.103.2",
   "has_pck": false,
